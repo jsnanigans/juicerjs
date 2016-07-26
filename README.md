@@ -3,7 +3,20 @@ JavaScript API for juicer http://juicer.io
 
 ## use example
 
-### define templates
+### call juicerjs
+```javascript
+var social = juicerjs({
+	feed: 'follow-loop',
+	templates: templates,
+	onSuccess: function(newPosts) {
+		$wrapper.append(newPosts);
+	}
+});
+
+social.load();
+```
+
+### templates example
 ```javascript
 var templates = {
 	Instagram: '<a href="{{full_url}}" target="_blank" class="social-tile social-tile--instagram js-swiper-slide"> \
@@ -28,17 +41,4 @@ var templates = {
 		</div> \
 	</a>'
 };
-```
-
-### call juicerjs
-```javascript
-var social = juicerjs({
-	feed: 'follow-loop',
-	templates: templates,
-	onSuccess: function(newPosts) {
-		$wrapper.append(newPosts);
-	}
-});
-
-social.load();
 ```
