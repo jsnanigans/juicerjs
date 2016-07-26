@@ -2,8 +2,6 @@
 JavaScript API for juicer http://juicer.io
 
 ## use example
-
-### call juicerjs
 ```javascript
 var social = juicerjs({
 	feed: 'follow-loop',
