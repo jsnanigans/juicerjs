@@ -2,6 +2,8 @@
 JavaScript API for juicer http://juicer.io
 - requires jQuery
 - simple demo: http://codepen.io/jsnanigans/pen/EyRaoN
+
+
 ## use example
 ### install or download
 ```bash
