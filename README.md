@@ -1,7 +1,12 @@
 # juicerjs
 JavaScript API for juicer http://juicer.io
+- requires jQuery
 
 ## use example
+### install or download
+```bash
+bower install juicerjs --save
+```
 ```javascript
 var social = juicerjs({
 	feed: 'follow-loop',

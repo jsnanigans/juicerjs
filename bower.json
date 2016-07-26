@@ -1,0 +1,17 @@
+{
+  "name": "juicerjs",
+  "main": "juicerjs.js",
+  "homepage": "https://github.com/jsnanigans/juicerjs",
+  "authors": [
+    "Brendan Mullins <b.mullins@agentur-loop.com>"
+  ],
+  "description": "JS API for juicer.io",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
