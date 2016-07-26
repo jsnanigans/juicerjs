@@ -1,5 +1,5 @@
 # juicerjs
-JavaScript API for juicer (http://juicer.io)[asd]
+JavaScript API for juicer http://juicer.io
 
 ## use example
 
