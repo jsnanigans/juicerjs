@@ -25,7 +25,9 @@ var social = juicerjs({
 social.load();
 ```
 
-### options
+
+## options
+### options | default
 ```javascript
 var options = {
 	page: integer | 1,
