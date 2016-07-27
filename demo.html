@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>juicerjs demo</title>
+	<style media="screen">
+		* {
+			box-sizing: border-box;
+		}
+		body {
+			background: #fff;
+			font-family: sans-serif;
+		}
+		.wrapper {
+			width: 600px;
+			max-width: 96%;
+			margin: 0 auto;
+			overflow: hidden;
+		}
+		.wrapper a {
+			display: block;
+			color: #fff;
+			text-decoration: none;
+			font-size: 30px;
+			background: #000;
+			padding: 20px;
+			margin: 0 0 20px;
+			/*margin: 10px 1%;*/
+		}
+		.wrapper img {
+			margin: 5px auto 0;
+			width: 100%;
+			display: block;
+			box-shadow: 0 0 12px rgba(0,0,0,.4);
+		}
+
+		.more {
+			margin: 10px auto 50px;
+			width: 100px;
+			line-height: 40px;
+			background: #000;
+			color: #fff;
+			text-align: center;
+			cursor: pointer;
+			opacity: 0;
+			transition: opacity 200ms;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="wrapper"></div>
+	<div class="more">more</div>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<script type="text/javascript" src="juicerjs.js"></script>
+	<script type="text/javascript">
+
+		$(function() {
+			// setup variables
+			var $wrapper = $('.wrapper');
+			var $more = $('.more');
+			var templates = {
+				Instagram: '\
+				<a href="{{full_url}}" target="_blank"> \
+					{{poster_name}}<br>\
+					<img src="{{image}}" /> \
+				</a>'
+			};
+
+			// initiate juicerjs
+			var social = juicerjs({
+				feed: 'follow-loop',
+				limit: 3,
+				templates: templates,
+				onSuccess: function(newPosts) {
+					$more.css('opacity', '1');
+					$wrapper.append(newPosts);
+				}
+			});
+
+			// load first batch of posts
+			social.load();
+
+			$more.on('click', function(){
+				$more.css('opacity', '0');
+
+				// increment page by 1
+				social.page++;
+				// load next batch of posts
+				social.load();
+			})
+		});
+
+	</script>
+</body>
+
+</html>
