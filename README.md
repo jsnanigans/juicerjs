@@ -2,6 +2,7 @@
 JavaScript API for juicer http://juicer.io
 - requires jQuery
 - simple demo: [codepen](http://codepen.io/jsnanigans/pen/EyRaoN)
+- demo with 'load more' button in demo.html
 
 ## use example
 ### install or download
