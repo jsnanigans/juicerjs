@@ -22,12 +22,12 @@ var social = juicerjs({
 ```
 ### options
 ```javascript
-var options = {
-	page: integer,
-	limit: integer,
-	feed: string,
-	onError: function,
-	onSuccess: function,
+opject = {
+	page: integer | 1,
+	limit: integer | 10,
+	feed: string | 'follow-loop',
+	onError: function | function(data) { console.log('error', data) },
+	onSuccess: function | function(data) { console.log('success', data) },
 	templates: object
 }
 ```
