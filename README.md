@@ -20,6 +20,17 @@ var social = juicerjs({
 	}
 });
 ```
+### options
+```javascript
+var options = {
+	page: integer,
+	limit: integer,
+	feed: string,
+	onError: function,
+	onSuccess: function,
+	templates: object
+}
+```
 ### load posts
 ```javascript
 social.load();
