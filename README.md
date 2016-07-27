@@ -20,6 +20,11 @@ var social = juicerjs({
 	}
 });
 ```
+### load posts
+```javascript
+social.load();
+```
+
 ### options
 ```javascript
 var options = {
@@ -30,10 +35,6 @@ var options = {
 	onSuccess: function | function(data) { console.log('success', data) },
 	templates: object
 }
-```
-### load posts
-```javascript
-social.load();
 ```
 
 ### templates example
