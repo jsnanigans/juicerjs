@@ -11,14 +11,13 @@ var juicerjs = function(opts) {
 	t.limit = opts.limit || 10;
 	t.feed = opts.feed || 'follow-loop';
 	t.error_cb = opts.onError || function(data) {
-		console.log('error', data)
+		console.log('error', data);
 	};
 	t.success_cb = opts.onSuccess || function(data) {
-		console.log('success', data)
+		console.log('success', data);
 	};
 
 	t.templates = opts.templates || {};
-
 
 	t.load = function() {
 		var url = 'https://www.juicer.io/api/feeds/' + t.feed + '?per=' + t.limit + '&page=' + t.page;
@@ -27,7 +26,7 @@ var juicerjs = function(opts) {
 			t.newPosts.length = 0;
 
 			if (data.slug === 'error') {
-				error_cb(data);
+				t.error_cb(data);
 			}
 			if (data.slug === t.feed) {
 				t.newPosts = data.posts.items;
@@ -58,7 +57,7 @@ var juicerjs = function(opts) {
 		}
 
 		// console.log(newPostsHTML);
-		success_cb(newPostsHTML.join(''));
+		t.success_cb(newPostsHTML.join(''));
 	};
 
 	return t;
