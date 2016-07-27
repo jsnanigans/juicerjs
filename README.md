@@ -22,7 +22,7 @@ var social = juicerjs({
 ```
 ### options
 ```javascript
-opject = {
+var options = {
 	page: integer | 1,
 	limit: integer | 10,
 	feed: string | 'follow-loop',
