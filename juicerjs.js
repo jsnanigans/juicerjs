@@ -7,21 +7,21 @@ var juicerjs = function(opts) {
 	t.posts = [];
 	t.newPosts = [];
 
-	var page = opts.page || 1;
-	var limit = opts.limit || 10;
-	var feed = opts.feed || 'follow-loop';
-	var error_cb = opts.onError || function(data) {
+	t.page = opts.page || 1;
+	t.limit = opts.limit || 10;
+	t.feed = opts.feed || 'follow-loop';
+	t.error_cb = opts.onError || function(data) {
 		console.log('error', data)
 	};
-	var success_cb = opts.onSuccess || function(data) {
+	t.success_cb = opts.onSuccess || function(data) {
 		console.log('success', data)
 	};
 
-	var templates = opts.templates || {};
+	t.templates = opts.templates || {};
 
 
 	t.load = function() {
-		var url = 'https://www.juicer.io/api/feeds/' + feed + '?per=' + limit + '&page=' + page;
+		var url = 'https://www.juicer.io/api/feeds/' + t.feed + '?per=' + t.limit + '&page=' + t.page;
 
 		$.get(url, function(data) {
 			t.newPosts.length = 0;
@@ -29,7 +29,7 @@ var juicerjs = function(opts) {
 			if (data.slug === 'error') {
 				error_cb(data);
 			}
-			if (data.slug === feed) {
+			if (data.slug === t.feed) {
 				t.newPosts = data.posts.items;
 				t.build();
 				t.posts.concat(t.newPosts);
@@ -44,8 +44,8 @@ var juicerjs = function(opts) {
 			var post = t.newPosts[i]
 			var channel = post.source.source;
 
-			if (typeof templates[channel] !== 'undefined') {
-				var html = templates[channel];
+			if (typeof t.templates[channel] !== 'undefined') {
+				var html = t.templates[channel];
 				for (var key in post) {
 					if (html.indexOf('{{' + key + '}}') !== -1) {
 						var search = new RegExp('{{' + key + '}}', 'g');
