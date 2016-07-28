@@ -50,7 +50,14 @@
 </head>
 
 <body>
-	<div class="wrapper"></div>
+	<div class="wrapper">
+		<script type="text/template" class="instagram_template">
+			<a href="{{full_url}}" target="_blank">
+				{{poster_name}}
+				<img src="{{image}}" />
+			</a>
+		</script>
+	</div>
 	<div class="more">more</div>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
@@ -62,21 +69,21 @@
 			var $wrapper = $('.wrapper');
 			var $more = $('.more');
 			var templates = {
-				Instagram: '\
-				<a href="{{full_url}}" target="_blank"> \
-					{{poster_name}}<br>\
-					<img src="{{image}}" /> \
-				</a>'
+				Instagram: $('.instagram_template')[0]
 			};
 
 			// initiate juicerjs
 			var social = juicerjs({
 				feed: 'follow-loop',
-				limit: 3,
+				limit: 8,
 				templates: templates,
-				onSuccess: function(newPosts) {
-					$more.css('opacity', '1');
-					$wrapper.append(newPosts);
+				onSuccess: function(array_strings, posts_array, is_there_more, ajax_response) {
+					if (more) {
+						$more.css('opacity', '1');
+					}else{
+						$more.remove();
+					};
+					$wrapper.append(array_strings.join(''));
 				}
 			});
 
@@ -85,11 +92,7 @@
 
 			$more.on('click', function(){
 				$more.css('opacity', '0');
-
-				// increment page by 1
-				social.page++;
-				// load next batch of posts
-				social.load();
+				social.more();
 			})
 		});
 
