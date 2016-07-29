@@ -14,7 +14,7 @@ var social = juicerjs({
 	templates: templates,
 	onSuccess: function(newPosts) {
 		// callback
-		$wrapper.append(newPosts);
+		$('.wrapper').append(newPosts);
 	}
 });
 ```
