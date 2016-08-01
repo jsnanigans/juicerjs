@@ -65,13 +65,30 @@ var juicerjs = function(opts) {
 		var ss = Math.floor(msec / 1000);
 		msec -= ss * 1000;
 
+		var dd_text = t.human_time.day[1];
+		if (dd === 1) {
+			dd_text = t.human_time.day[0];
+		}
+		var hh_text = t.human_time.hour[1];
+		if (hh === 1) {
+			hh_text = t.human_time.hour[0];
+		}
+		var mm_text = t.human_time.minute[1];
+		if (mm === 1) {
+			mm_text = t.human_time.minute[0];
+		}
+		var ss_text = t.human_time.second[1];
+		if (ss === 1) {
+			ss_text = t.human_time.second[0];
+		}
+
 		var text = '';
 		if (dd !== 0) {
-			text = dd + ' ' + t.human_time.day[1] + ', ' + hh + ' ' + t.human_time.hour[1];
+			text = dd + ' ' + dd_text + ', ' + hh + ' ' + hh_text;
 		} else if (hh !== 0) {
-			text = hh + ' ' + t.human_time.hour[1] + ', ' + mm + ' ' + t.human_time.minute[1];
+			text = hh + ' ' + hh_text + ', ' + mm + ' ' + mm_text;
 		} else {
-			text = mm + ' ' + t.human_time.minute[1] + ', ' + ss + ' ' + t.human_time.second[1];
+			text = mm + ' ' + mm_text + ', ' + ss + ' ' + ss_text;
 		}
 
 		return text;
