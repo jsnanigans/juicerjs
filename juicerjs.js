@@ -10,6 +10,7 @@ var juicerjs = function(opts) {
 	t.page = opts.page || 1;
 	t.limit = opts.limit || 10;
 	t.feed = opts.feed || 'follow-loop';
+	t.filter = opts.filter || 'all';
 	t.is_there_more = true;
 	t.human_time = opts.human_time || {
 		day: ['day', 'days'],
@@ -96,6 +97,9 @@ var juicerjs = function(opts) {
 
 	t.load = function() {
 		var url = 'https://www.juicer.io/api/feeds/' + t.feed + '?per=' + t.limit + '&page=' + t.page;
+		if (t.filter !== 'all') {
+			url += '&filter=' + t.filter;
+		}
 		t.now = new Date();
 
 		t.loadXML({

@@ -75,10 +75,11 @@
 			// initiate juicerjs
 			var social = juicerjs({
 				feed: 'follow-loop',
+				filter: 'Instagram',
 				limit: 8,
 				templates: templates,
 				onSuccess: function(array_strings, posts_array, is_there_more, ajax_response) {
-					if (more) {
+					if (is_there_more) {
 						$more.css('opacity', '1');
 					}else{
 						$more.remove();
@@ -91,6 +92,7 @@
 			social.load();
 
 			$more.on('click', function(){
+				social.filter = "all";
 				$more.css('opacity', '0');
 				social.more();
 			})
