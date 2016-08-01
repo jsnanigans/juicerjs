@@ -12,6 +12,12 @@ bower install juicerjs --save
 var social = juicerjs({
 	feed: 'follow-loop',
 	templates: templates,
+	// human_time: {
+	// 	day: ['Tag', 'Tage'],
+	// 	hour: ['Stunde', 'Stunden'],
+	// 	minute: ['Minute', 'Minuten'],
+	// 	second: ['Sekunde', 'Sekunden']
+	// },
 	onSuccess: function(newPosts) {
 		// callback
 		$('.wrapper').append(newPosts);

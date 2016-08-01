@@ -3,7 +3,7 @@ var juicerjs = function(opts) {
 		opts = {};
 	}
 
-	var t = this;
+	var t = {};
 	t.posts = [];
 	t.newPosts = [];
 
@@ -11,6 +11,12 @@ var juicerjs = function(opts) {
 	t.limit = opts.limit || 10;
 	t.feed = opts.feed || 'follow-loop';
 	t.is_there_more = true;
+	t.human_time = opts.human_time || {
+		day: ['day', 'days'],
+		hour: ['hour', 'hours'],
+		minute: ['minute', 'minutes'],
+		second: ['second', 'seconds']
+	};
 	t.error_cb = opts.onError || function(data) {
 		console.log('error', data);
 	};
@@ -44,8 +50,36 @@ var juicerjs = function(opts) {
 		xmlhttp.send();
 	}
 
+	t.human_time_diff = function(datetime) {
+		// console.log(datetime);
+		var postTime = new Date(datetime);
+		var diff = t.now - postTime;
+
+		var msec = diff;
+		var dd = Math.floor(msec / 1000 / 60 / 60 / 24);
+		msec -= dd * 1000 * 60 * 60 * 24;
+		var hh = Math.floor(msec / 1000 / 60 / 60);
+		msec -= hh * 1000 * 60 * 60;
+		var mm = Math.floor(msec / 1000 / 60);
+		msec -= mm * 1000 * 60;
+		var ss = Math.floor(msec / 1000);
+		msec -= ss * 1000;
+
+		var text = '';
+		if (dd !== 0) {
+			text = dd + ' ' + t.human_time.day[1] + ', ' + hh + ' ' + t.human_time.hour[1];
+		} else if (hh !== 0) {
+			text = hh + ' ' + t.human_time.hour[1] + ', ' + mm + ' ' + t.human_time.minute[1];
+		} else {
+			text = mm + ' ' + t.human_time.minute[1] + ', ' + ss + ' ' + t.human_time.second[1];
+		}
+
+		return text;
+	}
+
 	t.load = function() {
 		var url = 'https://www.juicer.io/api/feeds/' + t.feed + '?per=' + t.limit + '&page=' + t.page;
+		t.now = new Date();
 
 		t.loadXML({
 			url: url,
@@ -55,6 +89,18 @@ var juicerjs = function(opts) {
 				}
 				if (data.slug === t.feed) {
 					t.newPosts = data.posts.items;
+
+					for (var i = 0; i < data.posts.items.length; i++) {
+
+						// put source stuff into outer scope.
+						for (var key in data.posts.items[i].source) {
+							data.posts.items[i]['source_' + key] = data.posts.items[i].source[key];
+						}
+
+						// add human_time_diff
+						data.posts.items[i].human_time_diff = t.human_time_diff(data.posts.items[i].external_created_at);
+					}
+
 					if (data.posts.items.length !== t.limit) {
 						t.is_there_more = false;
 					}
