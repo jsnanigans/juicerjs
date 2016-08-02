@@ -69,9 +69,9 @@ var templates = {
 ### or get template from html
 #### html
 ```html
-<script type="text/template" class="instagram_template">
+<script type="text/template" class="default_template">
 	<a href="{{full_url}}" target="_blank">
-		{{poster_name}}
+		{{poster_name}} - {{date_full}}
 		<img src="{{image}}" />
 	</a>
 </script>
@@ -80,10 +80,10 @@ var templates = {
 ```javascript
 // with jQuery:
 var templates = {
-	Instagram: $('.instagram_template')[0]
+	Default: $('.default_template')[0]
 }
 // no jQuery:
 var templates = {
-	Instagram: document.querySelector('.instagram_template')
+	Default: document.querySelector('.default_template')
 }
 ```
