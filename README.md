@@ -59,15 +59,10 @@ onSuccess: function(array_strings, posts_array, is_there_more, ajax_response) {
 ### templates example
 ```javascript
 var templates = {
-	Instagram: '\
+	Default: '\
 		<a href="{{full_url}}" target="_blank" class="post--instagram"> \
 			{{poster_name}}<br>\
 			<img src="{{image}}" />\
-		</a>',
-	Facebook: '\
-		<a href="{{full_url}}" target="_blank" class="post--facebook"> \
-			<b>poster_name: </b> <br>\
-			{{unformatted_message}}\
 		</a>'
 };
 ```

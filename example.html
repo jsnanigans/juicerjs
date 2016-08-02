@@ -51,7 +51,7 @@
 
 <body>
 	<div class="wrapper">
-		<script type="text/template" class="instagram_template">
+		<script type="text/template" class="default_template">
 			<a href="{{full_url}}" target="_blank">
 				{{poster_name}} - {{date_full}}
 				<img src="{{image}}" />
@@ -69,7 +69,7 @@
 			var $wrapper = $('.wrapper');
 			var $more = $('.more');
 			var templates = {
-				Instagram: $('.instagram_template')[0]
+				Default: $('.default_template')[0]
 			};
 
 			// initiate juicerjs
