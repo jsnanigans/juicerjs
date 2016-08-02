@@ -60,7 +60,7 @@ onSuccess: function(array_strings, posts_array, is_there_more, ajax_response) {
 ```javascript
 var templates = {
 	Default: '\
-		<a href="{{full_url}}" target="_blank" class="post--instagram"> \
+		<a href="{{full_url}}" target="_blank" class="post"> \
 			{{poster_name}}<br>\
 			<img src="{{image}}" />\
 		</a>'
