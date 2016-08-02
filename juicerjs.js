@@ -1,3 +1,4 @@
+/* global XMLHttpRequest */
 var juicerjs = function(opts) {
 	if (typeof opts !== 'object') {
 		opts = {};
@@ -30,26 +31,26 @@ var juicerjs = function(opts) {
 		var xmlhttp = new XMLHttpRequest();
 
 		xmlhttp.onreadystatechange = function() {
-			if (xmlhttp.readyState == XMLHttpRequest.DONE) {
-				if (xmlhttp.status == 200) {
+			if (xmlhttp.readyState === XMLHttpRequest.DONE) {
+				if (xmlhttp.status === 200) {
 					if (typeof opts.success === 'function') {
 						opts.success(JSON.parse(xmlhttp.response));
 					}
-				} else if (xmlhttp.status == 400) {
+				} else if (xmlhttp.status === 400) {
 					if (typeof opts.error === 'function') {
-						opts.error(xmlhttp)
+						opts.error(xmlhttp);
 					}
 				} else {
 					if (typeof opts.error === 'function') {
-						opts.error(xmlhttp)
+						opts.error(xmlhttp);
 					}
 				}
 			}
 		};
 
-		xmlhttp.open("GET", opts.url, true);
+		xmlhttp.open('GET', opts.url, true);
 		xmlhttp.send();
-	}
+	};
 
 	t.human_time_diff = function(datetime) {
 		// console.log(datetime);
@@ -93,7 +94,23 @@ var juicerjs = function(opts) {
 		}
 
 		return text;
-	}
+	};
+
+	t.datefull = function(date) {
+		var date_obj = new Date(date);
+		var str = {
+			day: date_obj.getDay(),
+			month: date_obj.getMonth(),
+			year: date_obj.getFullYear()
+		};
+		if (str.day < 10) {
+			str.day = '0' + str.day;
+		}
+		if (str.month < 10) {
+			str.month = '0' + str.month;
+		}
+		return str.day + '.' + str.month + '.' + str.year;
+	};
 
 	t.load = function() {
 		var url = 'https://www.juicer.io/api/feeds/' + t.feed + '?per=' + t.limit + '&page=' + t.page;
@@ -120,6 +137,7 @@ var juicerjs = function(opts) {
 
 						// add human_time_diff
 						data.posts.items[i].human_time_diff = t.human_time_diff(data.posts.items[i].external_created_at);
+						data.posts.items[i].date_full = t.datefull(data.posts.items[i].external_created_at);
 					}
 
 					if (data.posts.items.length !== t.limit) {
@@ -135,7 +153,7 @@ var juicerjs = function(opts) {
 	t.build = function() {
 		var newPostsHTML = [];
 		for (var i = 0; i < t.newPosts.length; i++) {
-			var post = t.newPosts[i]
+			var post = t.newPosts[i];
 			var channel = post.source.source;
 
 			if (typeof t.templates[channel] !== 'undefined') {
