@@ -2,63 +2,67 @@
 <html>
 
 <head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
 	<meta charset="utf-8">
 	<title>juicerjs demo</title>
-	<style media="screen">
-		* {
-			box-sizing: border-box;
-		}
-		body {
-			background: #fff;
-			font-family: sans-serif;
-		}
-		.wrapper {
-			width: 600px;
-			max-width: 96%;
-			margin: 0 auto;
-			overflow: hidden;
-		}
-		.wrapper a {
-			display: block;
-			color: #fff;
-			text-decoration: none;
-			font-size: 30px;
-			background: #000;
-			padding: 20px;
-			margin: 0 0 20px;
-			/*margin: 10px 1%;*/
-		}
-		.wrapper img {
-			margin: 5px auto 0;
-			width: 100%;
-			display: block;
-			box-shadow: 0 0 12px rgba(0,0,0,.4);
-		}
 
-		.more {
-			margin: 10px auto 50px;
-			width: 100px;
-			line-height: 40px;
-			background: #000;
-			color: #fff;
-			text-align: center;
-			cursor: pointer;
-			opacity: 0;
-			transition: opacity 200ms;
+	<style media="screen">
+		body {
+			background: #eee;
+			overflow-y: scroll;
+		}
+		.el {
+			background: #fff;
+			padding: 30px;
+			margin: 30px auto ;
+			border-radius: 20px;
+			border: 1px solid #ccc;
+		}
+		.el:hover {
+			background-color: #ddd;
+		}
+		a:hover, a:focus {
+			text-decoration: none;
+		}
+		h2 {
+			margin-top: 0;
+		}
+		img {
+			box-shadow: 0 0 12px rgba(0,0,0,.2);
 		}
 	</style>
 </head>
 
 <body>
-	<div class="wrapper">
-		<script type="text/template" class="default_template">
-			<a href="{{full_url}}" target="_blank">
-				{{poster_name}} - {{date_full}}
-				<img src="{{image}}" />
-			</a>
-		</script>
+	<div class="container">
+		<br><br>
+		<div class="row text-center">
+			<button class="swap btn btn-default active" filter="all">all</button>
+			<button class="swap btn btn-default" filter="loopsunnyhours">loopsunnyhours</button>
+			<button class="swap btn btn-default" filter="followloop">followloop</button>
+		</div>
+		<br><br>
+		<div class="row">
+			<div class="wrapper">
+				<script type="text/template" class="default_template">
+					<div class="col-sm-12 col-md-6 el text-center" style="float: none;">
+						<a href="{{full_url}}" target="_blank">
+							<h2>@{{poster_name}}</h2>
+							<h3>{{human_time_diff}} ago</h3>
+							<img src="{{image}}" style="max-width: 100%" />
+						</a>
+					</div>
+				</script>
+			</div>
+		</div>
+		<div class="row text-center">
+			<div class="loading text-center"><h2>loading..</h2></div>
+			<button class="btn btn-primary more btn-lg">load more</button>
+			<br><br>
+		</div>
 	</div>
-	<div class="more">more</div>
+
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 	<script type="text/javascript" src="juicerjs.js"></script>
@@ -68,23 +72,26 @@
 			// setup variables
 			var $wrapper = $('.wrapper');
 			var $more = $('.more');
+			var $swap = $('.swap');
+			var $preloader = $('.loading');
 			var templates = {
 				Default: $('.default_template')[0]
 			};
 
-			// initiate juicerjs
 			var social = juicerjs({
 				feed: 'follow-loop',
-				filter: 'Instagram',
+				filter: 'followloop',
 				limit: 8,
 				templates: templates,
 				onSuccess: function(array_strings, posts_array, is_there_more, ajax_response) {
+					console.log(posts_array);
 					if (is_there_more) {
 						$more.css('opacity', '1');
 					}else{
 						$more.remove();
 					};
 					$wrapper.append(array_strings.join(''));
+					$preloader.css('display', 'none');
 				}
 			});
 
@@ -95,6 +102,17 @@
 				social.filter = "all";
 				$more.css('opacity', '0');
 				social.more();
+				$preloader.css('display', 'block');
+			});
+
+			$swap.on('click', function(){
+				social.filter = $(this).attr('filter');
+				social.page = 1;
+				$wrapper.html('');
+				social.load();
+
+				$preloader.css('display', 'block');
+				$(this).addClass('active').siblings().removeClass('active');
 			});
 		});
 
