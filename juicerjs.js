@@ -15,15 +15,15 @@ var juicerjs = function(opts) {
     t.is_there_more = true;
     t.human_time = opts.human_time || {
         day: [
-            'day', 'days'
+            'day', 'days',
         ],
         hour: [
-            'hour', 'hours'
+            'hour', 'hours',
         ],
         minute: [
-            'minute', 'minutes'
+            'minute', 'minutes',
         ],
-        second: ['second', 'seconds']
+        second: ['second', 'seconds'],
     };
     t.error_cb = opts.onError || function(data) {
         console.error('error', data);
@@ -106,7 +106,7 @@ var juicerjs = function(opts) {
         var str = {
             day: date_obj.getDay(),
             month: date_obj.getMonth(),
-            year: date_obj.getFullYear()
+            year: date_obj.getFullYear(),
         };
         if (str.day < 10) {
             str.day = '0' + str.day;
@@ -151,7 +151,7 @@ var juicerjs = function(opts) {
                     t.build();
                     t.posts.concat(t.newPosts);
                 }
-            }
+            },
         });
     };
 
