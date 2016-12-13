@@ -152,25 +152,28 @@ var juicerjs = function(opts) {
 
 	t.build = function() {
 		var newPostsHTML = [];
-		for (var i = 0; i < t.newPosts.length; i++) {
-			var post = t.newPosts[i];
-			var channel = post.source.source;
 
-			var html = t.templates['Default'];
-			if (typeof t.templates[channel] !== 'undefined') {
-				html = t.templates[channel];
-			}
-			if (typeof html === 'object') {
-				html = html.innerHTML;
-			}
-			for (var key in post) {
-				if (html.indexOf('{{' + key + '}}') !== -1) {
-					var search = new RegExp('{{' + key + '}}', 'g');
-					html = html.replace(search, post[key]);
+		if (t.buildTemplate !== false) {
+			for (var i = 0; i < t.newPosts.length; i++) {
+				var post = t.newPosts[i];
+				var channel = post.source.source;
+
+				var html = t.templates['Default'];
+				if (typeof t.templates[channel] !== 'undefined') {
+					html = t.templates[channel];
 				}
-			}
-			newPostsHTML.push(html);
-		};
+				if (typeof html === 'object') {
+					html = html.innerHTML;
+				}
+				for (var key in post) {
+					if (html.indexOf('{{' + key + '}}') !== -1) {
+						var search = new RegExp('{{' + key + '}}', 'g');
+						html = html.replace(search, post[key]);
+					}
+				}
+				newPostsHTML.push(html);
+			};
+		}
 
 		t.more = function() {
 			t.page++;
