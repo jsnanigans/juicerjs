@@ -34,7 +34,7 @@ var juicerjs = function(opts) {
         ],
     };
     t.human_wrap = opts.human_wrap || ['(', ')'];
-    t.human_divider = opts.human_divider || '&amp;';
+    t.human_divider = opts.human_divider || 'and';
     t.error_cb = opts.onError || function(data) {
         console.error('error', data);
     };
