@@ -22,8 +22,8 @@ var social = juicerjs({
 	//	like: ['like', 'likes'],
 	//	comment: ['comment', 'comments'],
 	// },
-	// human_wrap: ['(', ')'];
-	// human_divider: 'and';
+	// human_wrap: ['(', ')'],
+	// human_divider: 'and',
 	onSuccess: function(newPosts) {
 		// callback
 		$('.wrapper').append(newPosts);
