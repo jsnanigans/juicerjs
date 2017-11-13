@@ -18,6 +18,12 @@ var social = juicerjs({
 	// 	minute: ['Minute', 'Minuten'],
 	// 	second: ['Sekunde', 'Sekunden']
 	// },
+	// human_words: {
+	//	like: ['like', 'likes'],
+	//	comment: ['comment', 'comments'],
+	// },
+	// human_wrap: ['(', ')'];
+	// human_divider: 'and';
 	onSuccess: function(newPosts) {
 		// callback
 		$('.wrapper').append(newPosts);
