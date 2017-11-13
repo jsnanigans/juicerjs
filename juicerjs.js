@@ -25,6 +25,14 @@ var juicerjs = function(opts) {
         ],
         second: ['second', 'seconds'],
     };
+    t.human_words = opts.human_words || {
+        like: [
+            'like', 'likes',
+        ],
+        comment: [
+            'comment', 'comments',
+        ],
+    };
     t.error_cb = opts.onError || function(data) {
         console.error('error', data);
     };
@@ -117,6 +125,36 @@ var juicerjs = function(opts) {
         return str.day + '.' + str.month + '.' + str.year;
     };
 
+    t.human_likes = function(likes) {
+        
+        var l_text = t.human_words.like[1];
+        if (likes === 1) {
+            l_text = t.human_words.like[0];
+        }
+
+        var text = '';
+        if (likes !== 0) {
+            text = likes + ' ' + l_text;
+        }
+
+        return text;
+    };
+
+    t.human_comments = function(comments) {
+        
+        var c_text = t.human_words.comment[1];
+        if (comments === 1) {
+            c_text = t.human_words.comment[0];
+        }
+
+        var text = '';
+        if (comments !== 0) {
+            text = comments + ' ' + c_text;
+        }
+
+        return text;
+    };
+
     t.load = function() {
         var url = 'https://www.juicer.io/api/feeds/' + t.feed + '?per=' + t.limit + '&page=' + t.page;
         if (t.filter !== 'all') {
@@ -143,6 +181,10 @@ var juicerjs = function(opts) {
                         // add human_time_diff
                         data.posts.items[i].human_time_diff = t.human_time_diff(data.posts.items[i].external_created_at);
                         data.posts.items[i].date_full = t.datefull(data.posts.items[i].external_created_at);
+
+                        // add likes & comments
+                        data.posts.items[i].human_likes = t.human_likes(data.posts.items[i].like_count);
+                        data.posts.items[i].human_comments = t.human_comments(data.posts.items[i].comment_count);
                     }
 
                     if (data.posts.items.length !== t.limit) {
