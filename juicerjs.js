@@ -161,13 +161,13 @@ var juicerjs = function(opts) {
 
         var text = '';
         if (likes !== 0) {
-            text = t.human_likes(likes);
+            text += t.human_likes(likes);
         }
         if (likes !== 0 && comments !== 0) {
-            text += t.human_divider;
+            text += ' ' + t.human_divider + ' ';
         }
         if (comments !== 0) {
-            text = t.human_comments(comments);
+            text += t.human_comments(comments);
         }
         if (likes !== 0 || comments !== 0) {
             text = t.human_wrap[0] + text + t.human_wrap[1];
